@@ -3,27 +3,20 @@ import { useState } from 'react';
 import { Outlet } from "react-router-dom";
 
 function Posts() {
-  const [modalIsVisible, setModalIsVisible] = useState(false);
-
-  // function showModalHander() {
-  //   setModalIsVisible(true);
-  // }
-  // function hideModalHandler() {
-  //   setModalIsVisible(false);
-  // }
-
   return (
     <>
-      {/* <MainHeader onCreatePost={showModalHander} /> */}
       <Outlet />
       <main>
-        <PostsList
-          // isPosting={modalIsVisible}
-          // onStopPosting={hideModalHandler}
-        />
+        <PostsList  />
       </main>
     </>
   )
 }
 
 export default Posts;
+
+export async function loader() {
+  const response = await fetch('http://localhost:8080/posts')
+  const resData = await response.json();
+  return resData.posts;
+}
